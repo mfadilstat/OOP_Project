@@ -8,16 +8,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Muhammad Fadil
  */
 public class Penjualan extends javax.swing.JFrame {
-    
+
     private DefaultTableModel model;
-    
-    
+
+
     public void clear(){
         box_namaBarang.setText("");
         box_hargaBarang.setText("");
         box_jumlahBarang.setText("");
     }
-    
+
     public void cancel(){
         fbox_total.setText("Rp.");
         fbox_tunai.setText("");
@@ -35,7 +35,7 @@ public class Penjualan extends javax.swing.JFrame {
             box_jumlahBarang.getText()
         });
     }
-    
+
     public void hapusData(){
         int index = jTable1.getRowCount();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -43,7 +43,7 @@ public class Penjualan extends javax.swing.JFrame {
             model.removeRow(0);
         }
     }
-    
+
     public void dataMasuk(){
         int index = jTable1.getRowCount();
         int harga, total=0, jumlah;
@@ -56,6 +56,10 @@ public class Penjualan extends javax.swing.JFrame {
         fbox_total.setText("Rp. " + String.valueOf(total) + ",-");
         clear();
         box_namaBarang.requestFocus();
+    }
+
+    public void clearDatabase(){
+      int index = 0;
     }
 
     public Penjualan() {
@@ -402,10 +406,10 @@ public class Penjualan extends javax.swing.JFrame {
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         // TODO add your handling code here:
-        
+
         int Error = 0;
         int tmp;
-        
+
         if( box_namaBarang.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Nama Barang belum di input");
             box_namaBarang.requestFocus();
@@ -430,7 +434,7 @@ public class Penjualan extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Harga Barang harus angka");
                 box_hargaBarang.requestFocus();
             }
-            
+
             try{
                 tmp = 1 + Integer.valueOf(box_jumlahBarang.getText().toString());
                 if(Integer.valueOf(box_jumlahBarang.getText().toString())<=0){
@@ -443,7 +447,7 @@ public class Penjualan extends javax.swing.JFrame {
                 box_jumlahBarang.requestFocus();
             }
         }
-        
+
         if(Error == 0){
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -461,7 +465,7 @@ public class Penjualan extends javax.swing.JFrame {
         } else if(fbox_tunai.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Anda belum mengimput jumlah tunai yang diberikan");
         } else {
-            
+
             int total=0, tunai=-1, sisa,harga,jumlah,error=0;
             int index = jTable1.getRowCount();
 
@@ -473,7 +477,7 @@ public class Penjualan extends javax.swing.JFrame {
                 fbox_tunai.requestFocus();
                 error += 1;
             }
-            
+
             if(error == 0){
                 for(int i=0; i<index; i++){
                     harga = Integer.parseInt(jTable1.getValueAt(i,2).toString());
@@ -510,7 +514,7 @@ public class Penjualan extends javax.swing.JFrame {
         } else {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             int rowTable = jTable1.getSelectedRow();
-            
+
             try{
                 model.removeRow(rowTable);
             }catch(Exception e){
@@ -533,7 +537,7 @@ public class Penjualan extends javax.swing.JFrame {
 
             } else {
                 btn_tambah.setEnabled(false);
-                btn_delete.setEnabled(false);            
+                btn_delete.setEnabled(false);
                 btn_edit_update.setText("Update");
 
                 box_namaBarang.setText(model.getValueAt(rowTable, 1).toString());
@@ -542,13 +546,13 @@ public class Penjualan extends javax.swing.JFrame {
             }
         } else {
             btn_tambah.setEnabled(true);
-            btn_delete.setEnabled(true);            
+            btn_delete.setEnabled(true);
             btn_edit_update.setText("Edit");
-            
+
             model.setValueAt(box_namaBarang.getText(), rowTable, 1);
             model.setValueAt(box_hargaBarang.getText(), rowTable, 2);
             model.setValueAt(box_jumlahBarang.getText(), rowTable, 3);
-            
+
             clear();
             box_namaBarang.requestFocus();
             dataMasuk();
@@ -558,7 +562,7 @@ public class Penjualan extends javax.swing.JFrame {
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        
+
         try{
             for(int i=0; i<jTable1.getRowCount();i++){
                 String namaBarang = model.getValueAt(i, 1).toString();
@@ -579,14 +583,14 @@ public class Penjualan extends javax.swing.JFrame {
                 btn_simpan.setEnabled(false);
                 box_namaBarang.requestFocus();
             }
-            
+
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menyimpan data");
         }
 
     }//GEN-LAST:event_btn_simpanActionPerformed
 
-    
+
     /**
      * @param args the command line arguments
      */
@@ -594,7 +598,7 @@ public class Penjualan extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
